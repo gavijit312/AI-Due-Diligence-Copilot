@@ -7,7 +7,7 @@ Extracts text page by page and preserves source metadata.
 from pathlib import Path
 from typing import List
 
-import fitz
+import pymupdf
 from langchain_core.documents import Document
 
 
@@ -36,7 +36,7 @@ def load_pdf(file_path: str | Path) -> List[Document]:
 
     documents: List[Document] = []
 
-    with fitz.open(str(pdf_path)) as pdf:
+    with pymupdf.open(str(pdf_path)) as pdf:
         for page_number, page in enumerate(pdf, start=1):
             text = page.get_text("text").strip()
 
