@@ -1,3 +1,4 @@
+
 from rag.loader import load_documents
 
 UPLOAD_FOLDER = "data/uploads"
@@ -8,13 +9,22 @@ try:
     print("\nPDF LOADER TEST SUCCESSFUL")
     print(f"Total pages loaded: {len(documents)}")
 
-    first_document = documents[0]
+    for index, document in enumerate(documents, start=1):
+        print("\n" + "=" * 80)
+        print(f"PAGE {index}")
+        print("=" * 80)
 
-    print("\nFirst page metadata:")
-    print(first_document.metadata)
+        print(f"Source: {document.metadata['source']}")
+        print(f"Page number: {document.metadata['page']}")
+        print(f"Extracted characters: {len(document.page_content)}")
 
-    print("\nFirst page text preview:")
-    print(first_document.page_content[:500])
+        print("\nCOMPLETE EXTRACTED TEXT:\n")
+        print(document.page_content)
+
+    print("\n" + "=" * 80)
+    print("ALL PAGES DISPLAYED SUCCESSFULLY")
+    print("=" * 80)
 
 except Exception as error:
     print(f"\nPDF LOADER TEST FAILED: {error}")
+
